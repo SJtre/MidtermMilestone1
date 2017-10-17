@@ -6,8 +6,15 @@ using UnityEngine;
 public class GoalTriggerR : MonoBehaviour {
 
 	public bool goalRCheck = false;
+	public int goalRpoint;
 
 	void Update() {
+
+		if (goalRpoint == 5) {
+			goalRCheck = true;
+		} else {
+			goalRCheck = false;
+		}
 
 		if (goalRCheck && GameObject.Find ("TriggerB").GetComponent<GoalTriggerB> ().goalBCheck && GameObject.Find ("TriggerG").GetComponent<GoalTriggerG> ().goalGCheck) {
 			GameObject.Find ("Text").GetComponent<Text> ().text = "Wow! Every book is on the correct shelf!";
@@ -18,9 +25,11 @@ public class GoalTriggerR : MonoBehaviour {
 
 	void OnTriggerEnter(Collider activator) {
 		Debug.Log("Entrance.");
-		if (activator.gameObject == GameObject.Find ("Sphere Red")) {
-			Debug.Log ("Correct Sphere Entered.");
-			goalRCheck = true;
+		if (activator.tag == ("PointObjectR")) {
+			Debug.Log ("Correct Book Entered.");
+			goalRpoint += 1;
+			Debug.Log ("goalRpoint =" + goalRpoint);
+			//goalRCheck = true;
 			GameObject.Find ("Text").GetComponent<Text> ().text = "That's the right book!";
 		} else {
 			GameObject.Find ("Text").GetComponent<Text> ().text = "That's the not right book!";
@@ -28,9 +37,11 @@ public class GoalTriggerR : MonoBehaviour {
 	}
 	void OnTriggerExit(Collider activator) {
 		Debug.Log("Exit.");
-		if (activator.gameObject == GameObject.Find ("Sphere Red")) {
-			Debug.Log ("Correct Sphere Exited.");
-			goalRCheck = false;
+		if (activator.tag == ("PointObjectR")) {
+			Debug.Log ("Correct Book Exited.");
+			goalRpoint -= 1;
+			Debug.Log ("goalRpoint =" + goalRpoint);
+			//goalRCheck = false;
 			GameObject.Find ("Text").GetComponent<Text> ().text = "Place the books on the correct shelves.";
 		}
 	}
