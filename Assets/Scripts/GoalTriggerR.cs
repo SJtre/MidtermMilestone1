@@ -10,7 +10,7 @@ public class GoalTriggerR : MonoBehaviour {
 
 	void Update() {
 
-		if (goalRpoint == 5) {
+		if (goalRpoint == 3) {
 			goalRCheck = true;
 		} else {
 			goalRCheck = false;
@@ -31,8 +31,11 @@ public class GoalTriggerR : MonoBehaviour {
 			Debug.Log ("goalRpoint =" + goalRpoint);
 			//goalRCheck = true;
 			GameObject.Find ("Text").GetComponent<Text> ().text = "That's the right book!";
+			GameObject.Find ("Score").GetComponent<Text> ().text = "Green: " + GameObject.Find ("TriggerG").GetComponent<GoalTriggerG> ().goalGpoint 
+				+ "/3\n Blue: " + GameObject.Find ("TriggerB").GetComponent<GoalTriggerB> ().goalBpoint 
+				+ "/3\n Red: " + goalRpoint + "/3";
 		} else {
-			GameObject.Find ("Text").GetComponent<Text> ().text = "That's the not right book!";
+			GameObject.Find ("Text").GetComponent<Text> ().text = "That's not right!";
 		}
 	}
 	void OnTriggerExit(Collider activator) {
@@ -42,7 +45,10 @@ public class GoalTriggerR : MonoBehaviour {
 			goalRpoint -= 1;
 			Debug.Log ("goalRpoint =" + goalRpoint);
 			//goalRCheck = false;
-			GameObject.Find ("Text").GetComponent<Text> ().text = "Place the books on the correct shelves.";
+			GameObject.Find ("Text").GetComponent<Text> ().text = "Oh no! The book isn't on the right shelf anymore!";
+			GameObject.Find ("Score").GetComponent<Text> ().text = "Green: " + GameObject.Find ("TriggerG").GetComponent<GoalTriggerG> ().goalGpoint 
+				+ "/3\n Blue: " + GameObject.Find ("TriggerB").GetComponent<GoalTriggerB> ().goalBpoint 
+				+ "/3\n Red: " + goalRpoint + "/3";
 		}
 	}
 }
